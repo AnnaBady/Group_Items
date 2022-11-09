@@ -1,0 +1,54 @@
+﻿@page
+@using WebApplication1.Models
+@model WebApplication1.Pages.Items.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Items_Class</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+
+            @if(Model.Message != null){
+                <h4 class="alert alert-danger">@Model.Message</h4>
+            }
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Items_Class.ItemName" class="control-label"></label>
+                <input asp-for="Items_Class.ItemName" class="form-control" />
+                <span asp-validation-for="Items_Class.ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Items_Class.ItemPrice" class="control-label"></label>
+                <input asp-for="Items_Class.ItemPrice" class="form-control" />
+                <span asp-validation-for="Items_Class.ItemPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Items_Class.Groups.Id" >Group</label>
+                <select asp-for="Items_Class.Groups.Id" asp-items="@(new SelectList(Model.AllGroup, "Id", "GroupName"))"></select>
+            </div>
+            <div class="custom-file">
+                <label class="custom-file-lable" asp-for="Items_Class.ItemImage"></label>
+                <input id="NewImage" type="file" class="custom-file-input" asp-for="Items_Class.ItemImage" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Cancel</a>
+</div>
+
+<img alt="image" id="NewImage" style="width:300px" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
